@@ -64,4 +64,23 @@ export class UserController {
             return resp.sendStatus(500);
         }
     }
+
+    /**
+     * 
+     * Create a new user and return the user object
+     * 
+     * @param {ISecureRequest} req 
+     * @param {Response} resp 
+     * @returns 
+     */
+    @Get('')
+    public async createUser(req: ISecureRequest, resp: Response) {
+        try {
+            const user = await this.userModel.createNewUser()
+            return resp.status(200).json(user);
+        } catch (err) {
+            Logger.Err(err, true);
+            return resp.sendStatus(500);
+        }
+    }
 }
