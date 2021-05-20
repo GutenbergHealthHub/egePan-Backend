@@ -374,7 +374,7 @@ export class ParticipantModel {
      * 
      * @returns 
      */
-    public async createNewUser(): Promise<UserEntry> {
+    public async createNewUser(): Promise<ParticipantEntry> {
         let id = '';
         const chars = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','0','1','2','3','3','4','5','6','7','8','9']
         // create a randomized string with the format 'XXXX-XXXX-XXXX-XXXX-XXXX' where 'X' is a character from the list above
@@ -385,7 +385,7 @@ export class ParticipantModel {
             id  = i < 4 ? id + '-' : id;
         }
         const pool = DB.getPool();
-        await pool.query(`INSERT INTO studyuser VALUES ($1)`, [id])
-        return { study_id: id } as UserEntry;
+        await pool.query(`INSERT INTO studyparticipant VALUES ($1)`, [id])
+        return { subject_id: id } as ParticipantEntry;
     }
 }
