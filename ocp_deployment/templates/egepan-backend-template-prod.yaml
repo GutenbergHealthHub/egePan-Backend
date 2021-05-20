@@ -1,10 +1,10 @@
 kind: Template
 apiVersion: template.openshift.io/v1
 metadata:
-  name: compass-mobile-backend-template-prod
+  name: egePan-mobile-backend-template-prod
   annotations:
-    description: "Template for the productive set up of the compass mobile backend on OpenShift."
-    tags: "compass,nodejs,backend,prod"
+    description: "Template for the productive set up of the egePan mobile backend on OpenShift."
+    tags: "egePan,nodejs,backend,prod"
 objects:
 # PostgreSQL objects
 - kind: Secret
@@ -382,7 +382,7 @@ parameters:
   value: prod
 - name: HIGH_LVL_APP_NAME
   description: Name of the higher level application that a resource is part of
-  value: COMPASS
+  value: egePan
 - name: INSTANCE_IDENTIFIER
   description: Unique identifier for resources
   generate: expression
