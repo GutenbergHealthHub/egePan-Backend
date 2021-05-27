@@ -243,6 +243,7 @@ export class ParticipantModel {
         }
         const pool = DB.getPool();
         await pool.query(`INSERT INTO studyparticipant VALUES ($1)`, [id])
+        await this.updateParticipant(id);
         return { subject_id: id } as ParticipantEntry;
     }
 }

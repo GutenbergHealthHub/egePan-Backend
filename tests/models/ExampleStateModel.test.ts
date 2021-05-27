@@ -2,7 +2,7 @@ import { ExampleStateModel } from './../../src/models/ExampleStateModel';
 import * as dotenv from 'dotenv';
 import { COMPASSConfig } from '../../src/config/COMPASSConfig';
 
-import { StateChangeTrigger, UserEntry } from '../../src/types';
+import { StateChangeTrigger, ParticipantEntry } from '../../src/types';
 
 describe('signing', () => {
     dotenv.config({ path: './.env' });
@@ -20,8 +20,8 @@ describe('signing', () => {
 
     it('mustGoToInitialState', () => {
         // given
-        const user: UserEntry = {
-            study_id: '1',
+        const user: ParticipantEntry = {
+            subject_id: '1',
             last_action: null,
             current_questionnaire_id: '',
             start_date: null,
@@ -36,10 +36,10 @@ describe('signing', () => {
         const result = sut.calculateUpdatedData(user, parameters);
 
         // then
-        expect(result.study_id).toBe('1');
+        expect(result.subject_id).toBe('1');
         expect(result.last_action).toBe(null);
         expect(result.current_questionnaire_id).toBe(COMPASSConfig.getInitialQuestionnaireId());
-        expect(result.start_date.toISOString()).toBe('2019-10-31T05:00:00.000Z');
+        expect(result.start_date.toISOString()).toBe('2019-10-30T05:00:00.000Z');
         expect(result.due_date.toISOString()).toBe('2019-11-03T17:00:00.000Z');
         expect(result.current_interval).toBe(7);
         expect(result.additional_iterations_left).toBe(0);
@@ -47,8 +47,8 @@ describe('signing', () => {
 
     it('mustGoToDefaultState', () => {
         // given
-        const user: UserEntry = {
-            study_id: '1',
+        const user: ParticipantEntry = {
+            subject_id: '1',
             last_action: null,
             current_questionnaire_id: COMPASSConfig.getInitialQuestionnaireId(),
             start_date: null,
@@ -63,10 +63,10 @@ describe('signing', () => {
         const result = sut.calculateUpdatedData(user, parameters);
 
         // then
-        expect(result.study_id).toBe('1');
+        expect(result.subject_id).toBe('1');
         expect(result.last_action).toBe(null);
         expect(result.current_questionnaire_id).toBe(COMPASSConfig.getDefaultQuestionnaireId());
-        expect(result.start_date.toISOString()).toBe('2019-10-31T05:00:00.000Z');
+        expect(result.start_date.toISOString()).toBe('2019-10-30T05:00:00.000Z');
         expect(result.due_date.toISOString()).toBe('2019-11-03T17:00:00.000Z');
         expect(result.current_instance_id).toBeTruthy();
         expect(result.current_interval).toBe(7);
@@ -75,8 +75,8 @@ describe('signing', () => {
 
     it('mustGoToShortTrackState', () => {
         // given
-        const user: UserEntry = {
-            study_id: '1',
+        const user: ParticipantEntry = {
+            subject_id: '1',
             last_action: null,
             current_questionnaire_id: COMPASSConfig.getInitialQuestionnaireId(),
             start_date: null,
@@ -91,12 +91,12 @@ describe('signing', () => {
         const result = sut.calculateUpdatedData(user, parameters);
 
         // then
-        expect(result.study_id).toBe('1');
+        expect(result.subject_id).toBe('1');
         expect(result.last_action).toBe(null);
         expect(result.current_questionnaire_id).toBe(
             COMPASSConfig.getDefaultShortQuestionnaireId()
         );
-        expect(result.start_date.toISOString()).toBe('2019-10-31T05:00:00.000Z');
+        expect(result.start_date.toISOString()).toBe('2019-10-30T05:00:00.000Z');
         expect(result.due_date.toISOString()).toBe('2019-11-01T17:00:00.000Z');
         expect(result.current_instance_id).toBeTruthy();
         expect(result.current_interval).toBe(2);
@@ -105,8 +105,8 @@ describe('signing', () => {
 
     it('mustGoToShortTrackState', () => {
         // given
-        const user: UserEntry = {
-            study_id: '1',
+        const user: ParticipantEntry = {
+            subject_id: '1',
             last_action: null,
             current_questionnaire_id: COMPASSConfig.getInitialQuestionnaireId(),
             start_date: null,
@@ -121,12 +121,12 @@ describe('signing', () => {
         const result = sut.calculateUpdatedData(user, parameters);
 
         // then
-        expect(result.study_id).toBe('1');
+        expect(result.subject_id).toBe('1');
         expect(result.last_action).toBe(null);
         expect(result.current_questionnaire_id).toBe(
             COMPASSConfig.getDefaultShortLimitedQuestionnaireId()
         );
-        expect(result.start_date.toISOString()).toBe('2019-10-31T05:00:00.000Z');
+        expect(result.start_date.toISOString()).toBe('2019-10-30T05:00:00.000Z');
         expect(result.due_date.toISOString()).toBe('2019-11-01T17:00:00.000Z');
         expect(result.current_instance_id).toBeTruthy();
         expect(result.current_interval).toBe(2);
