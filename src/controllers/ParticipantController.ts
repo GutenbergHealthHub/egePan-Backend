@@ -67,21 +67,21 @@ export class ParticipantController {
     }
 
     /**
-     * 
+     *
      * Create a new user and return the user object
-     * 
-     * @param {ISecureRequest} req 
-     * @param {Response} resp 
-     * @returns 
+     *
+     * @param {ISecureRequest} req
+     * @param {Response} resp
+     * @returns
      */
-     @Get('')
-     public async createUser(req: ISecureRequest, resp: Response) {
-         try {
-             const user = await this.participantModel.createNewUser()
-             return resp.status(200).json(user);
-         } catch (err) {
-             Logger.Err(err, true);
-             return resp.sendStatus(500);
-         }
-     }
+    @Get('')
+    public async createUser(req: ISecureRequest, resp: Response) {
+        try {
+            const user = await this.participantModel.createNewUser();
+            return resp.status(200).json(user);
+        } catch (err) {
+            Logger.Err(err, true);
+            return resp.sendStatus(500);
+        }
+    }
 }
