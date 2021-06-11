@@ -224,4 +224,64 @@ export class ParticipantModel {
         Logger.Imp('Converted [' + date + '] to [' + convertedDate + ']');
         return convertedDate;
     }
+
+    /**
+     * Create e new user, i.e. generate a ranomized id an store it in the database
+     * Afterwards, return the newly created user
+     *
+     * @returns
+     */
+    public async createNewUser(): Promise<ParticipantEntry> {
+        let id = '';
+        const chars = [
+            'a',
+            'b',
+            'c',
+            'd',
+            'e',
+            'f',
+            'g',
+            'h',
+            'i',
+            'j',
+            'k',
+            'l',
+            'm',
+            'n',
+            'o',
+            'p',
+            'q',
+            'r',
+            's',
+            't',
+            'u',
+            'v',
+            'w',
+            'x',
+            'y',
+            'z',
+            '0',
+            '1',
+            '2',
+            '3',
+            '3',
+            '4',
+            '5',
+            '6',
+            '7',
+            '8',
+            '9'
+        ];
+        // create a randomized string with the format 'XXXX-XXXX-XXXX-XXXX-XXXX' where 'X' is a character from the list above
+        for (let i = 0; i < 5; i++) {
+            for (let ii = 0; ii < 5; ii++) {
+                id += chars[Math.floor(Math.random() * chars.length)];
+            }
+            id = i < 4 ? id + '-' : id;
+        }
+        const pool = DB.getPool();
+        await pool.query(`INSERT INTO studyparticipant VALUES ($1)`, [id]);
+        await this.updateParticipant(id);
+        return { subject_id: id } as ParticipantEntry;
+    }
 }

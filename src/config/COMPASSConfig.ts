@@ -179,7 +179,7 @@ export class COMPASSConfig {
      * @memberof COMPASSConfig
      */
     public static getDefaultIntervalStartIndex(): number {
-        return env.get('COMPASS_DEFAULT_INTERVAL_START_INDEX').default(1).asIntPositive();
+        return env.get('COMPASS_DEFAULT_INTERVAL_START_INDEX').default(0).asIntPositive();
     }
 
     /**
