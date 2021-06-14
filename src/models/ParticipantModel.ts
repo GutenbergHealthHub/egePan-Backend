@@ -7,11 +7,11 @@ import { Logger } from '@overnightjs/logger';
 
 import { StateChangeTrigger, ParticipantEntry } from '../types';
 import DB from '../server/DB';
-import { ExampleStateModel } from './ExampleStateModel';
+import { EgePanStateModel } from './EgePanStateModel';
 import { StateModel } from './StateModel';
 export class ParticipantModel {
     // the model that determines which questionnaire to send - replace this with you custom model
-    private stateModel: StateModel = new ExampleStateModel();
+    private stateModel: StateModel = new EgePanStateModel();
 
     /**
      * Update the participants current questionnaire, the start and due date and short interval usage.
