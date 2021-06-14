@@ -114,7 +114,7 @@ export class COMPASSConfig {
      * @memberof COMPASSConfig
      */
     public static getDefaultIterationCount(): number {
-        return env.get('COMPASS_DEFAULT_ITERATION_COUNT').default(5).asIntPositive();
+        return env.get('COMPASS_DEFAULT_ITERATION_COUNT').default(52).asIntPositive();
     }
 
     /**
@@ -136,10 +136,18 @@ export class COMPASSConfig {
      * @memberof COMPASSConfig
      */
     public static getDefaultQuestionnaireId(): string {
-        return env
-            .get('COMPASS_DEFAULT_QUESTIONNAIRE_ID')
-            .default('fedaf08b-aae2-4d9b-8306-8a3de02d2f74')
-            .asString();
+        return env.get('COMPASS_DEFAULT_QUESTIONNAIRE_ID').default('weekly').asString();
+    }
+
+    /**
+     * The id if the questionnaire for the long track.
+     *
+     * @static
+     * @return {*}  {string}
+     * @memberof COMPASSConfig
+     */
+    public static getDefaultLongQuestionnaireId(): string {
+        return env.get('COMPASS_DEFAULT_LONG_QUESTIONNAIRE_ID').default('long_term').asString();
     }
 
     /**
@@ -150,7 +158,7 @@ export class COMPASSConfig {
      * @memberof COMPASSConfig
      */
     public static getDefaultShortQuestionnaireId(): string {
-        return env.get('COMPASS_DEFAULT_SHORT_QUESTIONNAIRE_ID').default('q_1.0').asString();
+        return env.get('COMPASS_DEFAULT_SHORT_QUESTIONNAIRE_ID').default('lq_1.0').asString();
     }
 
     /**
