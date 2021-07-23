@@ -226,7 +226,7 @@ export class ParticipantModel {
     }
 
     /**
-     * Create e new user, i.e. generate a ranomized id an store it in the database
+     * Create e new user, i.e. generate a randomized id and store it in the database
      * Afterwards, return the newly created user
      *
      * @returns
@@ -280,7 +280,11 @@ export class ParticipantModel {
             id = i < 4 ? id + '-' : id;
         }
         const pool = DB.getPool();
-        await pool.query(`INSERT INTO studyparticipant VALUES ($1)`, [id]);
+        // save user in db with timestamp indicating when the consent to the TOS was given
+        await pool.query(
+            `INSERT INTO studyparticipant (subject_id, consent_given) VALUES ($1, $2)`,
+            [id, this.convertDateToQueryString(new Date())]
+        );
         await this.updateParticipant(id);
         return { subject_id: id } as ParticipantEntry;
     }
