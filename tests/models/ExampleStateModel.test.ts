@@ -171,6 +171,7 @@ describe('signing', () => {
         expect(result.current_questionnaire_id).toBe(
             COMPASSConfig.getDefaultShortLimitedQuestionnaireId()
         );
+
         expect(result.start_date.toISOString()).toBe(expectedStartDate.toISOString());
         expect(result.due_date.toISOString()).toBe(expectedDueDate.toISOString());
         expect(result.current_instance_id).toBeTruthy();

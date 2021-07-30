@@ -51,5 +51,6 @@ CREATE TABLE studyparticipant
     current_instance_id character varying(355),
     current_interval smallint,
     additional_iterations_left smallint,
+    consent_given timestamp without time zone,
     CONSTRAINT studyparticipant_pkey PRIMARY KEY (subject_id)
 );

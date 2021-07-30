@@ -1,10 +1,10 @@
 kind: Template
 apiVersion: template.openshift.io/v1
 metadata:
-    name: compass-mobile-backend-template
+    name: egePan-mobile-backend-template
     annotations:
-        description: 'Template for the set up of the compass mobile backend and PostgreSQL database service on OpenShift.'
-        tags: 'compass,nodejs,backend,database,postgresql'
+        description: 'Template for the set up of the egePan mobile backend and PostgreSQL database service on OpenShift.'
+        tags: 'egePan,nodejs,backend,database,postgresql'
 objects:
     # PostgreSQL objects
     - kind: Secret
@@ -463,7 +463,7 @@ parameters:
       description: Name of the PostgreSQL database accessed.
       displayName: PostgreSQL Database Name
       required: true
-      value: compass
+      value: egePan
     - name: DATABASE_PASSWORD
       description: Password for the PostgreSQL connection user.
       displayName: PostgreSQL Connection Password
@@ -512,7 +512,7 @@ parameters:
       from: '[a-zA-Z0-9]{16}'
     - name: HIGH_LVL_APP_NAME
       description: Name of the higher level application that a resource is part of
-      value: COMPASS
+      value: egePan
     - name: INSTANCE_IDENTIFIER
       description: Unique identifier for resources
       generate: expression
