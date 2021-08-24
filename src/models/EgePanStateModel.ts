@@ -3,7 +3,7 @@
  */
 import { COMPASSConfig } from '../config/COMPASSConfig';
 import { IdHelper } from '../services/IdHelper';
-import { StateChangeTrigger, ParticipantEntry } from '../types';
+import { ParticipantEntry } from '../types';
 import { StateModel } from './StateModel';
 
 /**
@@ -23,11 +23,8 @@ export class EgePanStateModel implements StateModel {
      * @return {*}  {ParticipantEntry}
      * @memberof ExampleStateModel
      */
-    public calculateUpdatedData(
-        participant: ParticipantEntry,
-        parameters: StateChangeTrigger
-    ): ParticipantEntry {
-        const distValues = this.calculateStateValues(participant, parameters);
+    public calculateUpdatedData(participant: ParticipantEntry): ParticipantEntry {
+        const distValues = this.calculateStateValues(participant);
         const datesAndIterations = this.calculateDates(
             participant,
             distValues.nextInterval,
@@ -135,10 +132,7 @@ export class EgePanStateModel implements StateModel {
         return dates;
     }
 
-    private calculateStateValues(
-        currentParticipant: ParticipantEntry,
-        triggerValues: StateChangeTrigger
-    ) {
+    private calculateStateValues(currentParticipant: ParticipantEntry) {
         // get default values
 
         const regularInterval = COMPASSConfig.getDefaultInterval();
@@ -156,15 +150,20 @@ export class EgePanStateModel implements StateModel {
         let startImmediately: boolean;
         const iterationCount = COMPASSConfig.getDefaultIterationCount();
 
+        // if no "due_date" has been set, the user hasn't received a questionnaire yet,
+        // therefore the next one will be the first (initial) one
         if (!currentParticipant.due_date) {
             nextQuestionnaireId = initialQuestionnaireId;
         } else if (
-            currentParticipant.additional_iterations_left % 12 === 4 &&
+            // if the participant has completed all 12 instances of the weekly questionnaire, he/she will receive the last one
+            currentParticipant.additional_iterations_left === 0 &&
             currentParticipant.current_questionnaire_id === defaultQuestionnaireId
         ) {
             nextQuestionnaireId = longQuestionnaireId;
             startImmediately = true;
         } else {
+            //default: weekly questionnaire
+            //initialize iteration count if necessary
             nextQuestionnaireId = defaultQuestionnaireId;
             iterationsLeft =
                 currentParticipant.current_questionnaire_id === initialQuestionnaireId
