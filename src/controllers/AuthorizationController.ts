@@ -47,9 +47,8 @@ export class AuthorizationController {
                 ? req.params.subjectID
                 : undefined;
 
-            const checkLoginSuccess: boolean = await AuthorizationController.participantModel.checkLogin(
-                subjectID
-            );
+            const checkLoginSuccess: boolean =
+                await AuthorizationController.participantModel.checkLogin(subjectID);
 
             return checkLoginSuccess ? next() : res.status(401).send();
         } catch (err) {
