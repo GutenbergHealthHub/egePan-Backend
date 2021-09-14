@@ -34,9 +34,10 @@ export class ParticipantController {
     @Middleware([AuthorizationController.checkStudyParticipantLogin])
     public async getParticipant(req: ISecureRequest, resp: Response) {
         try {
-            const participant: ParticipantEntry = await this.participantModel.getAndUpdateParticipantBySubjectID(
-                req.params.subjectID
-            );
+            const participant: ParticipantEntry =
+                await this.participantModel.getAndUpdateParticipantBySubjectID(
+                    req.params.subjectID
+                );
             this.participantModel.updateLastAction(req.params.subjectID);
 
             const returnObject = {
@@ -50,7 +51,10 @@ export class ParticipantController {
                     COMPASSConfig.getInitialQuestionnaireId(),
                 additional_iterations_left: participant.additional_iterations_left,
                 current_interval: participant.current_interval,
-                recipient_certificate_pem_string: COMPASSConfig.getRecipientCertificate()
+                recipient_certificate_pem_string: COMPASSConfig.getRecipientCertificate(),
+                status: participant.status,
+                general_study_end_date: participant.general_study_end_date,
+                personal_study_end_date: participant.personal_study_end_date
             };
             return resp.status(200).json(returnObject);
         } catch (err) {
