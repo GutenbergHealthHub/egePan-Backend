@@ -30,9 +30,9 @@ describe('signing', () => {
             current_instance_id: null,
             current_interval: null,
             additional_iterations_left: null,
-            general_study_end_date: null,
-            personal_study_end_date: null,
-            status: ParticipationStatus.OnStudy
+            status: ParticipationStatus.OnStudy,
+            general_study_end_date: undefined,
+            personal_study_end_date: undefined
         };
         const parameters: StateChangeTrigger = {};
 
@@ -72,9 +72,9 @@ describe('signing', () => {
             current_instance_id: null,
             current_interval: 1,
             additional_iterations_left: 0,
-            general_study_end_date: null,
-            personal_study_end_date: null,
-            status: ParticipationStatus.OnStudy
+            status: ParticipationStatus.OnStudy,
+            general_study_end_date: new Date(),
+            personal_study_end_date: new Date()
         };
         const parameters: StateChangeTrigger = {};
 
@@ -114,9 +114,9 @@ describe('signing', () => {
             current_instance_id: null,
             current_interval: 1,
             additional_iterations_left: 0,
-            general_study_end_date: null,
-            personal_study_end_date: null,
-            status: ParticipationStatus.OnStudy
+            status: ParticipationStatus.OnStudy,
+            general_study_end_date: new Date(),
+            personal_study_end_date: new Date()
         };
         const parameters: StateChangeTrigger = { basicTrigger: true };
 
@@ -158,9 +158,9 @@ describe('signing', () => {
             current_instance_id: null,
             current_interval: 1,
             additional_iterations_left: 0,
-            general_study_end_date: null,
-            personal_study_end_date: null,
-            status: ParticipationStatus.OnStudy
+            status: ParticipationStatus.OnStudy,
+            general_study_end_date: new Date(),
+            personal_study_end_date: new Date()
         };
         const parameters: StateChangeTrigger = { specialTrigger: true };
 
