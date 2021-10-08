@@ -165,6 +165,7 @@ export class EgePanStateModel implements StateModel {
             //default: weekly questionnaire
             //initialize iteration count if necessary
             nextQuestionnaireId = defaultQuestionnaireId;
+            startImmediately = true;
             iterationsLeft =
                 currentParticipant.current_questionnaire_id === initialQuestionnaireId
                     ? iterationCount
