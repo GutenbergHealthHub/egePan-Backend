@@ -92,7 +92,16 @@ export class EgePanStateModel implements StateModel {
                     if (startImmediately) {
                         newStartDate = new Date(intervalStart);
                     } else {
-                        newStartDate.setDate(newStartDate.getDate() + nextInterval);
+                        if (
+                            participantData.current_questionnaire_id ===
+                            COMPASSConfig.getDefaultQuestionnaireId()
+                        ) {
+                            newStartDate.setDate(
+                                newStartDate.getDate() + nextInterval + (5 - newStartDate.getDay())
+                            );
+                        } else {
+                            newStartDate.setDate(newStartDate.getDate() + nextInterval);
+                        }
                     }
                 }
                 newStartDate.setHours(nextStartHour, 0, 0, 0);
@@ -137,7 +146,6 @@ export class EgePanStateModel implements StateModel {
 
         const regularInterval = COMPASSConfig.getDefaultInterval();
         const regularDuration = COMPASSConfig.getDefaultDuration();
-        const regularStartDay = 5; //friday
         const regularStartHour = COMPASSConfig.getDefaultStartHour();
         const regularDueHour = COMPASSConfig.getDefaultDueHour();
 
@@ -165,7 +173,7 @@ export class EgePanStateModel implements StateModel {
             //default: weekly questionnaire
             //initialize iteration count if necessary
             nextQuestionnaireId = defaultQuestionnaireId;
-            startImmediately = true;
+            startImmediately = currentParticipant.current_questionnaire_id === 'initial';
             iterationsLeft =
                 currentParticipant.current_questionnaire_id === initialQuestionnaireId
                     ? iterationCount
@@ -176,7 +184,6 @@ export class EgePanStateModel implements StateModel {
             nextInterval: regularInterval,
             nextDuration: regularDuration,
             nextQuestionnaireId: nextQuestionnaireId,
-            nextStartDay: regularStartDay,
             nextStartHour: regularStartHour,
             nextDueHour: regularDueHour,
             startImmediately: startImmediately ? startImmediately : false,
