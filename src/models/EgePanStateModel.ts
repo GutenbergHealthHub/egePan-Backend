@@ -3,7 +3,7 @@
  */
 import { COMPASSConfig } from '../config/COMPASSConfig';
 import { IdHelper } from '../services/IdHelper';
-import { ParticipantEntry } from '../types';
+import { ParticipantEntry, ParticipationStatus } from '../types';
 import { StateModel } from './StateModel';
 
 /**
@@ -25,6 +25,9 @@ export class EgePanStateModel implements StateModel {
      */
     public calculateUpdatedData(participant: ParticipantEntry): ParticipantEntry {
         const distValues = this.calculateStateValues(participant);
+        if (distValues.status === 'off-study') {
+            return { ...participant, status: ParticipationStatus.OffStudy };
+        }
         const datesAndIterations = this.calculateDates(
             participant,
             distValues.nextInterval,
@@ -169,6 +172,8 @@ export class EgePanStateModel implements StateModel {
         ) {
             nextQuestionnaireId = longQuestionnaireId;
             startImmediately = true;
+        } else if (currentParticipant.current_questionnaire_id === longQuestionnaireId) {
+            return { status: 'off-study' };
         } else {
             //default: weekly questionnaire
             //initialize iteration count if necessary
