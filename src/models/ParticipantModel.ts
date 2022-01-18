@@ -152,7 +152,7 @@ export class ParticipantModel {
     }
 
     /**
-     * Retrieve all device tokens for which a questionnaire is available for download.
+     * Retrieve all device tokens for which a new questionnaire is available for download.
      *
      * @param referenceDate The reference date used to determine matching participant ids
      */
@@ -186,7 +186,7 @@ export class ParticipantModel {
     }
 
     /**
-     * Retrieve all device tokens for which a questionnaire is available for download.
+     * Retrieve all device tokens for which the current questionnaire has not yet been submitted.
      *
      * @param referenceDate The reference date used to determine matching participant ids
      */
@@ -312,5 +312,40 @@ export class ParticipantModel {
         );
         await this.updateParticipant(id);
         return { subject_id: id } as ParticipantEntry;
+    }
+
+    /**
+     * get and update all users whose current questionnaire should have been submitted by now
+     *
+     * @param referenceDate the current date
+     *
+     */
+    public async updateOutdatedParticipants(referenceDate: Date): Promise<void> {
+        const pool: Pool = DB.getPool();
+        const dateParam = this.convertDateToQueryString(referenceDate);
+        let usersToUpdate = [];
+        //query db to find all users with outdated questionnaires
+        try {
+            const res = await pool.query(
+                `select
+                    s.subject_id
+                from
+                    studyparticipant s
+                where
+                    s.start_date < $1
+                    and s.due_date <$1
+                    and s.status = $2
+            `,
+                [dateParam, ParticipationStatus.OnStudy]
+            );
+            usersToUpdate = res.rows;
+        } catch (err) {
+            Logger.Err(err);
+        } finally {
+            // update all users returned by the query
+            usersToUpdate.forEach((user) =>
+                this.getAndUpdateParticipantBySubjectID(user.subject_id)
+            );
+        }
     }
 }

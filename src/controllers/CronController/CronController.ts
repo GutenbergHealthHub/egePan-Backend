@@ -4,6 +4,7 @@
 import { ChildControllers, ClassOptions } from '@overnightjs/core';
 
 import { CronJobNotification } from './CronJobNotification';
+import { CronJobUserUpdate } from './CronJobUserUpdate';
 
 /**
  * A hack to have instances of cron jobs instantiated.
@@ -12,5 +13,5 @@ import { CronJobNotification } from './CronJobNotification';
  * @class CronController
  */
 @ClassOptions({ mergeParams: true })
-@ChildControllers([new CronJobNotification()])
+@ChildControllers([new CronJobNotification(), new CronJobUserUpdate()])
 export class CronController {}
