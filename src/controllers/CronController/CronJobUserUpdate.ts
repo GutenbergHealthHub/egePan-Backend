@@ -14,7 +14,7 @@ import { ParticipantModel } from '../../models/ParticipantModel';
 export class CronJobUserUpdate extends AbstractCronJob {
     private participantModel: ParticipantModel = new ParticipantModel();
     constructor() {
-        super('* * * * *'); // at 5:00 Local Time (GMT+02:00)
+        super('* 5 * * *'); // at 5:00 Local Time (GMT+02:00)
     }
 
     /**
