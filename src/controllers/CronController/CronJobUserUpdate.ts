@@ -14,17 +14,17 @@ import { ParticipantModel } from '../../models/ParticipantModel';
 export class CronJobUserUpdate extends AbstractCronJob {
     private participantModel: ParticipantModel = new ParticipantModel();
     constructor() {
-        super('* 5 * * *'); // at 5:00 Local Time (GMT+02:00)
+        super('* * * * *'); // at 5:00 Local Time (GMT+02:00)
     }
 
     /**
      * Execute the job.
      *
-     * @memberof CronJobNotification
+     * @memberof CronJobUserUpdate
      */
     public async executeJob(): Promise<void> {
-        Logger.Info('Cronjob CronJobNotification fired at [' + new Date() + ']');
-        const perfLog = PerformanceLogger.startMeasurement('CronJobNotification', 'executeJob');
+        Logger.Info('Cronjob CronJobUserUpdate fired at [' + new Date() + ']');
+        const perfLog = PerformanceLogger.startMeasurement('CronJobUserUpdate', 'executeJob');
         const now = new Date();
         now.setUTCHours(5, 0, 0, 0);
         await this.participantModel.updateOutdatedParticipants(now);
