@@ -22,7 +22,7 @@ export class CronJobNotification extends AbstractCronJob {
     private pushService: PushService = new PushService();
 
     constructor() {
-        super('10 8 * * *'); // at 6:00 Local Time (GMT+02:00)
+        super('0 6 * * *'); // at 6:00 Local Time (GMT+02:00)
     }
 
     /**
