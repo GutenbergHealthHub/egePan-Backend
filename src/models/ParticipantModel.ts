@@ -175,6 +175,7 @@ export class ParticipantModel {
                     and s.start_date <= $1
                     and s.due_date >= $1
                     and s.status = $2
+                    and s.registration_token is not null
                 `,
                 [dateParam, ParticipationStatus['OnStudy']]
             );
@@ -209,6 +210,7 @@ export class ParticipantModel {
                     and q.instance_id = s.current_instance_id
                     and q.date_sent is null
                     and s.status = $2
+                    and s.registration_token is not null
                 `,
                 [dateParam, ParticipationStatus['OnStudy']]
             );
