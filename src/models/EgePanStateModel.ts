@@ -25,7 +25,7 @@ export class EgePanStateModel implements StateModel {
      */
     public calculateUpdatedData(participant: ParticipantEntry): ParticipantEntry {
         const distValues = this.calculateStateValues(participant);
-        if (distValues.status === 'off-study') {
+        if (distValues.status === ParticipationStatus.OffStudy) {
             return { ...participant, status: ParticipationStatus.OffStudy };
         }
         const datesAndIterations = this.calculateDates(
@@ -173,12 +173,13 @@ export class EgePanStateModel implements StateModel {
             nextQuestionnaireId = longQuestionnaireId;
             startImmediately = true;
         } else if (currentParticipant.current_questionnaire_id === longQuestionnaireId) {
-            return { status: 'off-study' };
+            return { status: ParticipationStatus.OffStudy };
         } else {
             //default: weekly questionnaire
             //initialize iteration count if necessary
             nextQuestionnaireId = defaultQuestionnaireId;
-            startImmediately = currentParticipant.current_questionnaire_id === 'initial';
+            startImmediately =
+                currentParticipant.current_questionnaire_id === initialQuestionnaireId;
             iterationsLeft =
                 currentParticipant.current_questionnaire_id === initialQuestionnaireId
                     ? iterationCount

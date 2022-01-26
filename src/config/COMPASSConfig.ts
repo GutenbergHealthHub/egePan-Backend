@@ -125,7 +125,10 @@ export class COMPASSConfig {
      * @memberof COMPASSConfig
      */
     public static getInitialQuestionnaireId(): string {
-        return env.get('COMPASS_INITIAL_QUESTIONNAIRE_ID').default('initial').asString();
+        return env
+            .get('COMPASS_INITIAL_QUESTIONNAIRE_ID')
+            .default('http://hl7.org/fhir/Questionnaire/Fragebogen_egePan_init|0.1')
+            .asString();
     }
 
     /**
@@ -136,7 +139,10 @@ export class COMPASSConfig {
      * @memberof COMPASSConfig
      */
     public static getDefaultQuestionnaireId(): string {
-        return env.get('COMPASS_DEFAULT_QUESTIONNAIRE_ID').default('weekly').asString();
+        return env
+            .get('COMPASS_DEFAULT_QUESTIONNAIRE_ID')
+            .default('http://hl7.org/fhir/Questionnaire/Fragebogen_egePan_weekly|0.1')
+            .asString();
     }
 
     /**
@@ -147,7 +153,10 @@ export class COMPASSConfig {
      * @memberof COMPASSConfig
      */
     public static getDefaultLongQuestionnaireId(): string {
-        return env.get('COMPASS_DEFAULT_LONG_QUESTIONNAIRE_ID').default('long_term').asString();
+        return env
+            .get('COMPASS_DEFAULT_LONG_QUESTIONNAIRE_ID')
+            .default('http://hl7.org/fhir/Questionnaire/Fragebogen_egePan_final|0.1')
+            .asString();
     }
 
     /**
