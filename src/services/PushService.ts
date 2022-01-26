@@ -56,7 +56,7 @@ export class PushService {
 
         const android: admin.messaging.AndroidConfig = {
             collapseKey: 'Accept',
-            priority: 'normal',
+            priority: 'high',
             ttl: 86400 // time to live is 1d as it will be superseded by the next msg
         };
 
@@ -64,6 +64,7 @@ export class PushService {
         const apns: admin.messaging.ApnsConfig = {
             payload: {
                 aps: {
+                    contentAvailable: true,
                     category: 'Accept',
                     sound: {
                         name: 'Default'
