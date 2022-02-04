@@ -114,7 +114,7 @@ export class COMPASSConfig {
      * @memberof COMPASSConfig
      */
     public static getDefaultIterationCount(): number {
-        return env.get('COMPASS_DEFAULT_ITERATION_COUNT').default(12).asIntPositive();
+        return env.get('COMPASS_DEFAULT_ITERATION_COUNT').default(13).asIntPositive();
     }
 
     /**

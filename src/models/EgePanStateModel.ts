@@ -99,10 +99,13 @@ export class EgePanStateModel implements StateModel {
                             participantData.current_questionnaire_id ===
                             COMPASSConfig.getDefaultQuestionnaireId()
                         ) {
-                            newStartDate.setDate(
-                                newStartDate.getDate() + nextInterval + (5 - newStartDate.getDay())
-                            );
-                        } else {
+                            if (participantData.additional_iterations_left)
+                                newStartDate.setDate(
+                                    newStartDate.getDate() +
+                                        nextInterval +
+                                        (5 - newStartDate.getDay())
+                                );
+                        } else if (participantData.current_questionnaire_id) {
                             newStartDate.setDate(newStartDate.getDate() + nextInterval);
                         }
                     }
@@ -116,11 +119,15 @@ export class EgePanStateModel implements StateModel {
                     COMPASSConfig.getInitialQuestionnaireId()
                 ) {
                     // get the difference in days of week and increment by 7 (i.e. shift by a week), if closest start day to current day is in the past
+                } else if (
+                    participantData.current_questionnaire_id ===
+                        COMPASSConfig.getDefaultQuestionnaireId() &&
+                    participantData.additional_iterations_left === 13
+                ) {
                     let interval = 5 - newStartDate.getDay();
                     interval += interval < 0 ? 7 : 0;
                     newStartDate.setDate(newStartDate.getDate() + interval);
                 }
-
                 newDueDate = new Date(newStartDate);
                 newDueDate.setDate(newDueDate.getDate() + nextDuration);
                 newDueDate.setHours(nextDueHour, 0, 0, 0);
@@ -179,7 +186,9 @@ export class EgePanStateModel implements StateModel {
             //initialize iteration count if necessary
             nextQuestionnaireId = defaultQuestionnaireId;
             startImmediately =
-                currentParticipant.current_questionnaire_id === initialQuestionnaireId;
+                currentParticipant.current_questionnaire_id === initialQuestionnaireId ||
+                (currentParticipant.current_questionnaire_id === defaultQuestionnaireId &&
+                    currentParticipant.additional_iterations_left === 13);
             iterationsLeft =
                 currentParticipant.current_questionnaire_id === initialQuestionnaireId
                     ? iterationCount
