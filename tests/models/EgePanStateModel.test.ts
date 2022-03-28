@@ -3,8 +3,7 @@ import { EgePanStateModel } from '../../src/models/EgePanStateModel';
 import { ParticipantEntry, ParticipationStatus } from '../../src/types';
 
 describe('', () => {
-    let realDateNow;
-    const initialDate = new Date(1572393600000);
+    let realDateNow: () => number;
     beforeAll(() => {
         realDateNow = Date.now.bind(global.Date);
         global.Date.now = jest.fn(() => 1572393600000); // 2019-10-30T00:00Z0 (GMT)
