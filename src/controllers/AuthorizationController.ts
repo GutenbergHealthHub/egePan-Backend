@@ -96,7 +96,10 @@ export class AuthorizationController {
             typeof encryptedKey !== 'string' ||
             typeof initializationVector !== 'string'
         ) {
-            return res.status(401).send();
+            return res.status(401).json({
+                errorCode: 'AuthInvalid',
+                errorMessage: 'Invalid credentials provided. Only strings allowed.'
+            });
         }
 
         try {
