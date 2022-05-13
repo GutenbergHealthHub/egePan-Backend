@@ -96,6 +96,7 @@ export class AuthorizationController {
             typeof encryptedKey !== 'string' ||
             typeof initializationVector !== 'string'
         ) {
+            Logger.info("failed credentials:" + JSON.stringify(credentials));
             return res.status(401).json({
                 errorCode: 'AuthInvalid',
                 errorMessage: 'Invalid credentials provided. Only strings allowed.'
@@ -118,6 +119,7 @@ export class AuthorizationController {
                 typeof credentials.ApiKey !== 'string' ||
                 typeof credentials.CurrentDate !== 'string'
             ) {
+                Logger.info("failed credentials:" + JSON.stringify(credentials));
                 return res.status(401).json({
                     errorCode: 'AuthInvalid',
                     errorMessage: 'Invalid credentials provided. Only strings allowed.'
