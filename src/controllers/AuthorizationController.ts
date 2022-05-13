@@ -115,14 +115,20 @@ export class AuthorizationController {
                 typeof credentials.ApiKey !== 'string' ||
                 typeof credentials.CurrentDate !== 'string'
             ) {
-                return res.status(401).send();
+                return res.status(401).json({
+                    errorCode: 'AuthInvalid',
+                    errorMessage: 'Invalid credentials provided. Only strings allowed.'
+                });
             }
 
             const credsDate = new Date(credentials.CurrentDate);
 
             if (AuthConfig.enableTimeCheckForAPIAuth) {
                 if (credsDate < timeMinus2Mins || credsDate > timePlus2Mins) {
-                    return res.status(401).send();
+                    return res.status(401).json({
+                        errorCode: 'AuthOutdated',
+                        errorMessage: 'Invalid credentials provided. Timestamp is outdated.'
+                    });
                 }
             }
 
@@ -150,7 +156,10 @@ export class AuthorizationController {
                     access_token: accessToken
                 });
             } else {
-                return res.status(401).send();
+                return res.status(401).json({
+                    errorCode: 'AuthNoMatch',
+                    errorMessage: 'Invalid credentials provided: api_key and api_id do not match.'
+                });
             }
         } catch (err) {
             Logger.Err(err);
