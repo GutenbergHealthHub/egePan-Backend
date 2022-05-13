@@ -124,7 +124,7 @@ export class AuthorizationController {
                 });
             }
 
-            const credsDate = new Date(credentials.CurrentDate);
+            const credsDate = new Date(parseInt(credentials.CurrentDate), 10);
 
             if (AuthConfig.enableTimeCheckForAPIAuth) {
                 if (credsDate < timeMinus2Mins || credsDate > timePlus2Mins) {
