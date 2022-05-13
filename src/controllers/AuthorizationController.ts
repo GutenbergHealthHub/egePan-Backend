@@ -96,7 +96,7 @@ export class AuthorizationController {
             typeof encryptedKey !== 'string' ||
             typeof initializationVector !== 'string'
         ) {
-            Logger.Info("failed credentials:" + JSON.stringify(credentials));
+            Logger.Info("failed credentials:" + JSON.stringify(encryptedCredentials));
             return res.status(401).json({
                 errorCode: 'AuthInvalid',
                 errorMessage: 'Invalid credentials provided. Only strings allowed.'
