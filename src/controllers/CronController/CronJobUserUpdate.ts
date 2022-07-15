@@ -23,7 +23,7 @@ export class CronJobUserUpdate extends AbstractCronJob {
      * @memberof CronJobUserUpdate
      */
     public async executeJob(): Promise<void> {
-        Logger.Info('Cronjob CronJobUserUpdate fired at [' + new Date() + ']');
+        Logger.info('Cronjob CronJobUserUpdate fired at [' + new Date() + ']');
         const perfLog = PerformanceLogger.startMeasurement('CronJobUserUpdate', 'executeJob');
         const now = new Date();
         now.setUTCHours(5, 0, 0, 0);

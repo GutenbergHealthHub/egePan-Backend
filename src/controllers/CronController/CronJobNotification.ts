@@ -31,7 +31,7 @@ export class CronJobNotification extends AbstractCronJob {
      * @memberof CronJobNotification
      */
     public async executeJob(): Promise<void> {
-        Logger.Info('Cronjob CronJobNotification fired at [' + new Date() + ']');
+        Logger.info('Cronjob CronJobNotification fired at [' + new Date() + ']');
         const perfLog = PerformanceLogger.startMeasurement('CronJobNotification', 'executeJob');
 
         // ATTENTION: keep this in sync with the start time of this cron job
@@ -47,7 +47,7 @@ export class CronJobNotification extends AbstractCronJob {
             const downloadMsg = PushServiceConfig.getDownloadMessage();
             await this.pushService.send(downloadMsg, participantsWithNewQuestionnaires);
         } catch (error) {
-            Logger.Err(error, true);
+            Logger.err(error, true);
         }
 
         // Reminder - upload questionnaire
@@ -57,7 +57,7 @@ export class CronJobNotification extends AbstractCronJob {
             const uploadMsg = PushServiceConfig.getUploadMessage();
             await this.pushService.send(uploadMsg, participantsWithPendingUploads);
         } catch (error) {
-            Logger.Err(error, true);
+            Logger.err(error, true);
         }
 
         PerformanceLogger.endMeasurement(perfLog);

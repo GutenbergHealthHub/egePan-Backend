@@ -49,7 +49,7 @@ export class AuthorizationController {
 
             return checkLoginSuccess ? next() : res.status(401).send();
         } catch (err) {
-            Logger.Err(err);
+            Logger.err(err);
             return res.status(500).send();
         }
     }
@@ -72,7 +72,7 @@ export class AuthorizationController {
                 return done(null, false);
             } else return done({ name: 'UnauthorizedApiUser; Not found' }, true);
         } catch (err) {
-            Logger.Err(err);
+            Logger.err(err);
             return done({ name: 'InternalError' }, true);
         }
     }
@@ -96,7 +96,7 @@ export class AuthorizationController {
             typeof encryptedKey !== 'string' ||
             typeof initializationVector !== 'string'
         ) {
-            Logger.Info('failed credentials:' + JSON.stringify(encryptedCredentials));
+            Logger.info('failed credentials:' + JSON.stringify(encryptedCredentials));
             return res.status(401).json({
                 errorCode: 'AuthInvalid',
                 errorMessage: 'Invalid credentials provided. Only strings allowed.'
@@ -119,7 +119,7 @@ export class AuthorizationController {
                 typeof credentials.ApiKey !== 'string' ||
                 typeof credentials.CurrentDate !== 'string'
             ) {
-                Logger.Info('failed credentials:' + JSON.stringify(credentials));
+                Logger.info('failed credentials:' + JSON.stringify(credentials));
                 return res.status(401).json({
                     errorCode: 'AuthInvalid',
                     errorMessage: 'Invalid credentials provided. Only strings allowed.'
@@ -167,7 +167,7 @@ export class AuthorizationController {
                 });
             }
         } catch (err) {
-            Logger.Err(err);
+            Logger.err(err);
             return res.status(401).send();
         }
     }

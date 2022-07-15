@@ -65,7 +65,7 @@ export class SubjectIdentitiesController {
                 return: true
             });
         } catch (err) {
-            Logger.Err(err, true);
+            Logger.err(err, true);
             return resp.sendStatus(500);
         }
     }

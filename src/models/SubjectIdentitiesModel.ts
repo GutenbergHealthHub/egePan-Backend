@@ -22,7 +22,7 @@ export class SubjectIdentitiesModel {
             }
             return true;
         } catch (err) {
-            Logger.Err(err);
+            Logger.err(err);
             throw err;
         }
     }
@@ -36,7 +36,7 @@ export class SubjectIdentitiesModel {
             const pool: Pool = DB.getPool();
             await pool.query('INSERT INTO studyparticipant(subject_id) VALUES ($1);', [subjectID]);
         } catch (err) {
-            Logger.Err(err);
+            Logger.err(err);
             throw err;
         }
         return;

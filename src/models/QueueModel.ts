@@ -38,7 +38,7 @@ export class QueueModel {
             );
             return res.rows as QueueEntry[];
         } catch (err) {
-            Logger.Err(err);
+            Logger.err(err);
             throw err;
         }
     }
@@ -56,7 +56,7 @@ export class QueueModel {
             // tslint:disable-next-line: no-string-literal
             return res.rows[0]['count_queue_data'];
         } catch (err) {
-            Logger.Err(err);
+            Logger.err(err);
             throw err;
         }
     }
@@ -74,7 +74,7 @@ export class QueueModel {
             const res = await pool.query('DELETE FROM queue WHERE id = ANY($1)', [idArray]);
             return res.rowCount;
         } catch (err) {
-            Logger.Err(err);
+            Logger.err(err);
             throw err;
         }
     }
@@ -151,8 +151,8 @@ export class QueueModel {
                 return;
             }
         } catch (e) {
-            Logger.Err('!!! DB might be inconsistent. Check DB !!!');
-            Logger.Err(e);
+            Logger.err('!!! DB might be inconsistent. Check DB !!!');
+            Logger.err(e);
             throw e;
         } finally {
             dbClient.release();

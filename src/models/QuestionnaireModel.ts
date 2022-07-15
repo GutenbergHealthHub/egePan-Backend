@@ -62,8 +62,8 @@ export class QuestionnaireModel {
                 return res.rows[0].body;
             }
         } catch (e) {
-            Logger.Err('!!! DB might be inconsistent. Check DB !!!');
-            Logger.Err(e);
+            Logger.err('!!! DB might be inconsistent. Check DB !!!');
+            Logger.err(e);
             throw e;
         } finally {
             dbClient.release();

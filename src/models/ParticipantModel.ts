@@ -72,7 +72,7 @@ export class ParticipantModel {
             );
             return updatedParticipant;
         } catch (err) {
-            Logger.Err(err);
+            Logger.err(err);
             throw err;
         }
     }
@@ -106,7 +106,7 @@ export class ParticipantModel {
             }
             return participant;
         } catch (err) {
-            Logger.Err(err);
+            Logger.err(err);
             throw err;
         }
     }
@@ -124,7 +124,7 @@ export class ParticipantModel {
             );
             return;
         } catch (err) {
-            Logger.Err(err);
+            Logger.err(err);
             throw err;
         }
     }
@@ -146,7 +146,7 @@ export class ParticipantModel {
                 return true;
             }
         } catch (err) {
-            Logger.Err(err);
+            Logger.err(err);
             throw err;
         }
     }
@@ -181,7 +181,7 @@ export class ParticipantModel {
             );
             return res.rows.map((participant) => participant.registration_token);
         } catch (err) {
-            Logger.Err(err);
+            Logger.err(err);
             throw err;
         }
     }
@@ -216,7 +216,7 @@ export class ParticipantModel {
             );
             return res.rows.map((participant) => participant.registration_token);
         } catch (err) {
-            Logger.Err(err);
+            Logger.err(err);
             throw err;
         }
     }
@@ -236,7 +236,7 @@ export class ParticipantModel {
             );
             return;
         } catch (err) {
-            Logger.Err(err);
+            Logger.err(err);
             throw err;
         }
     }
@@ -248,7 +248,7 @@ export class ParticipantModel {
      */
     private convertDateToQueryString(date: Date): string {
         const convertedDate = date.toISOString().replace('T', ' ').replace('Z', '');
-        Logger.Imp('Converted [' + date + '] to [' + convertedDate + ']');
+        Logger.imp('Converted [' + date + '] to [' + convertedDate + ']');
         return convertedDate;
     }
 
@@ -342,7 +342,7 @@ export class ParticipantModel {
             );
             usersToUpdate = res.rows;
         } catch (err) {
-            Logger.Err(err);
+            Logger.err(err);
         } finally {
             // update all users returned by the query
             usersToUpdate.forEach((user) =>

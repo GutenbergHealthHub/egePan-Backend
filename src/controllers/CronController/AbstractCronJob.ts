@@ -24,10 +24,10 @@ export abstract class AbstractCronJob {
      */
     constructor(pattern: string) {
         this.job = new CronJob(pattern, () => this.executeJob(), null, true);
-        Logger.Info('Created Cronjob');
-        Logger.Info('Running: [' + this.job.running + ']');
-        Logger.Imp('Next executions: ');
-        Logger.Imp(this.job.nextDates(5), true);
+        Logger.info('Created Cronjob');
+        Logger.info('Running: [' + this.job.running + ']');
+        Logger.imp('Next executions: ');
+        Logger.imp(this.job.nextDates(5), true);
     }
 
     protected abstract executeJob(): Promise<void>;

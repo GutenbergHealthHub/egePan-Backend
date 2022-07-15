@@ -55,7 +55,7 @@ export class ParticipantController {
             };
             return resp.status(200).json(returnObject);
         } catch (err) {
-            Logger.Err(err, true);
+            Logger.err(err, true);
             return resp.sendStatus(500);
         }
     }
@@ -78,7 +78,7 @@ export class ParticipantController {
             );
             return resp.sendStatus(204);
         } catch (err) {
-            Logger.Err(err, true);
+            Logger.err(err, true);
             return resp.sendStatus(500);
         }
     }
@@ -96,7 +96,7 @@ export class ParticipantController {
             const user = await this.participantModel.createNewUser();
             return resp.status(200).json(user);
         } catch (err) {
-            Logger.Err(err, true);
+            Logger.err(err, true);
             return resp.sendStatus(500);
         }
     }

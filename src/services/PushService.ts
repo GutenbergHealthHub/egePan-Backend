@@ -18,7 +18,7 @@ export class PushService {
     public constructor() {
         if (!PushService.fcmInstance) {
             // Initialize the SDK
-            Logger.Info('Initializing Firebase Cloud Messaging');
+            Logger.info('Initializing Firebase Cloud Messaging');
             PushService.fcmInstance = admin.initializeApp({
                 credential: admin.credential.applicationDefault()
             });
@@ -35,24 +35,24 @@ export class PushService {
      * @memberof PushService
      */
     public async send(msg: string, registrationTokens: string[]): Promise<void> {
-        Logger.Info(' --> Entering Send');
+        Logger.info(' --> Entering Send');
 
         if (msg === null) {
-            Logger.Warn('No message provided. Skip sending push notifications.');
+            Logger.warn('No message provided. Skip sending push notifications.');
             return;
         }
         if (registrationTokens === null || registrationTokens.length < 1) {
-            Logger.Warn('No participantid provided. Skip sending push notifications.');
+            Logger.warn('No participantid provided. Skip sending push notifications.');
             return;
         }
         if (PushServiceConfig.getCredentialFile().length === 0) {
-            Logger.Err(
+            Logger.err(
                 'Credential file for push service not set. Skip sending push notifications.'
             );
             return;
         }
 
-        Logger.Imp(`Sending message [${msg}] to [${registrationTokens.length}] recipients.`);
+        Logger.imp(`Sending message [${msg}] to [${registrationTokens.length}] recipients.`);
 
         const android: admin.messaging.AndroidConfig = {
             collapseKey: 'Accept',
@@ -89,7 +89,7 @@ export class PushService {
             // registration token.
             try {
                 const response = await admin.messaging().sendMulticast(message);
-                Logger.Info(response.successCount + ' messages were sent successfully');
+                Logger.info(response.successCount + ' messages were sent successfully');
                 if (response.failureCount > 0) {
                     const failedTokens = [];
                     response.responses.forEach((resp, idx) => {
@@ -97,14 +97,14 @@ export class PushService {
                             failedTokens.push(registrationTokens[idx]);
                         }
                     });
-                    Logger.Err('List of tokens that caused failures: ' + failedTokens);
+                    Logger.err('List of tokens that caused failures: ' + failedTokens);
                 }
             } catch (error) {
-                Logger.Err('Error sending message: ' + error);
+                Logger.err('Error sending message: ' + error);
             }
         });
 
-        Logger.Info(' <-- Leaving Send');
+        Logger.info(' <-- Leaving Send');
     }
 
     /**

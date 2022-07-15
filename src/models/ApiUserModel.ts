@@ -32,7 +32,7 @@ export class ApiUserModel {
                 return res.rows[0] as ApiUserEntry;
             }
         } catch (err) {
-            Logger.Err(err);
+            Logger.err(err);
             throw err;
         }
     }
@@ -54,7 +54,7 @@ export class ApiUserModel {
                 return true;
             }
         } catch (err) {
-            Logger.Err(err);
+            Logger.err(err);
             throw err;
         }
     }

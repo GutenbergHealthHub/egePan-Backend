@@ -74,7 +74,7 @@ export class DownloadController {
                 cTransferList: signedItems
             });
         } catch (err) {
-            Logger.Err(err, true);
+            Logger.err(err, true);
             return resp.sendStatus(500);
         }
     }
@@ -111,7 +111,7 @@ export class DownloadController {
             const deletedRowCount = await this.queueModel.deleteQueueDataByIdArray(req.body);
             return resp.status(200).send({ deletedRowCount });
         } catch (err) {
-            Logger.Err(err, true);
+            Logger.err(err, true);
             return resp.sendStatus(500);
         }
     }
