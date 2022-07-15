@@ -9,6 +9,7 @@ import { NextFunction, Request, Response } from 'express';
 
 import { Controller, Post } from '@overnightjs/core';
 import Logger from 'jet-logger';
+import { Jwt } from 'jsonwebtoken';
 
 import { AuthConfig } from '../config/AuthConfig';
 import { ApiUserModel } from '../models/ApiUserModel';
@@ -57,23 +58,17 @@ export class AuthorizationController {
     /**
      * Express middleware that checks if the API user's access token is valid.
      */
-    public static async checkApiUserLogin(
-        _req: Request,
-        payload: {
-            api_id: string;
-        },
-        done: (err: { name: string }, revoked: boolean) => void
-    ) {
+    public static async checkApiUserLogin(_req: Request, token: Jwt) {
         try {
             const success = await AuthorizationController.apiUserModel.checkIfExists(
-                payload.api_id
+                token.payload['api_id']
             );
             if (success) {
-                return done(null, false);
-            } else return done({ name: 'UnauthorizedApiUser; Not found' }, true);
+                return Promise.resolve(false);
+            } else return Promise.resolve(true);
         } catch (err) {
             Logger.err(err);
-            return done({ name: 'InternalError' }, true);
+            return Promise.reject();
         }
     }
 

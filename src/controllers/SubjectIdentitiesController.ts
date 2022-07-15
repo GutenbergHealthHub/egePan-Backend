@@ -11,7 +11,7 @@ import Logger from 'jet-logger';
 
 import { SubjectIdentitiesModel } from '../models/SubjectIdentitiesModel';
 import { AuthorizationController } from './AuthorizationController';
-import jwt from 'express-jwt';
+import { expressjwt as jwt } from 'express-jwt';
 import { AuthConfig } from '../config/AuthConfig';
 
 /**

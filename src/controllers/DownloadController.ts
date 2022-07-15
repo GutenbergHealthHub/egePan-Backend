@@ -5,7 +5,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 import { Request, Response } from 'express';
-import jwt from 'express-jwt';
+import { expressjwt as jwt } from 'express-jwt';
 
 import { ClassMiddleware, Controller, Delete, Get } from '@overnightjs/core';
 import Logger from 'jet-logger';
