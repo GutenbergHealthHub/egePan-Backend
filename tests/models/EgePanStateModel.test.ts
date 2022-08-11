@@ -34,8 +34,8 @@ describe('', () => {
             COMPASSConfig.getInitialQuestionnaireId()
         );
 
-        expect(updatedEntry.start_date.toISOString()).toBe('2019-10-30T05:00:00.000Z');
-        expect(updatedEntry.due_date.toISOString()).toBe('2019-11-02T17:00:00.000Z');
+        expect(updatedEntry.start_date.toUTCString()).toBe('Wed, 30 Oct 2019 05:00:00 GMT');
+        expect(updatedEntry.due_date.toUTCString()).toBe('Sat, 02 Nov 2019 17:00:00 GMT');
 
         expect(updatedEntry.additional_iterations_left).toBe(0);
     });
@@ -61,8 +61,8 @@ describe('', () => {
             COMPASSConfig.getDefaultQuestionnaireId()
         );
 
-        expect(updatedEntry.start_date.toISOString()).toBe('2019-10-30T05:00:00.000Z');
-        expect(updatedEntry.due_date.toISOString()).toBe('2019-11-02T17:00:00.000Z');
+        expect(updatedEntry.start_date.toUTCString()).toBe('Wed, 30 Oct 2019 05:00:00 GMT');
+        expect(updatedEntry.due_date.toUTCString()).toBe('Sat, 02 Nov 2019 17:00:00 GMT');
 
         expect(updatedEntry.additional_iterations_left).toBe(12);
     });
@@ -88,8 +88,8 @@ describe('', () => {
             COMPASSConfig.getDefaultQuestionnaireId()
         );
 
-        expect(updatedEntry.start_date.toISOString()).toBe('2019-11-01T05:00:00.000Z');
-        expect(updatedEntry.due_date.toISOString()).toBe('2019-11-04T17:00:00.000Z');
+        expect(updatedEntry.start_date.toUTCString()).toBe('Fri, 01 Nov 2019 05:00:00 GMT');
+        expect(updatedEntry.due_date.toUTCString()).toBe('Mon, 04 Nov 2019 17:00:00 GMT');
 
         expect(updatedEntry.additional_iterations_left).toBe(12);
     });
