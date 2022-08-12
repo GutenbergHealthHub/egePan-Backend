@@ -35,7 +35,7 @@ describe('', () => {
         );
 
         expect(updatedEntry.start_date.toUTCString()).toBe('Wed, 30 Oct 2019 05:00:00 GMT');
-        expect(updatedEntry.due_date.toUTCString()).toBe('Sat, 02 Nov 2019 17:00:00 GMT');
+        expect(updatedEntry.due_date).toBe(undefined);
 
         expect(updatedEntry.additional_iterations_left).toBe(0);
     });

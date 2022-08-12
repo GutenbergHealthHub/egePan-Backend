@@ -128,9 +128,11 @@ export class EgePanStateModel implements StateModel {
                     interval += interval < 0 ? 7 : 0;
                     newStartDate.setDate(newStartDate.getDate() + interval);
                 }
-                newDueDate = new Date(newStartDate);
-                newDueDate.setDate(newDueDate.getDate() + nextDuration);
-                newDueDate.setHours(nextDueHour, 0, 0, 0);
+                if (nextDuration) {
+                    newDueDate = new Date(newStartDate);
+                    newDueDate.setDate(newDueDate.getDate() + nextDuration);
+                    newDueDate.setHours(nextDueHour, 0, 0, 0);
+                }
             }
 
             return {
@@ -197,7 +199,8 @@ export class EgePanStateModel implements StateModel {
 
         return {
             nextInterval: regularInterval,
-            nextDuration: regularDuration,
+            nextDuration:
+                nextQuestionnaireId === initialQuestionnaireId ? undefined : regularDuration,
             nextQuestionnaireId: nextQuestionnaireId,
             nextStartHour: regularStartHour,
             nextDueHour: regularDueHour,
