@@ -248,7 +248,7 @@ paths:
                 '401':
                     $ref: '#/components/responses/401NotAuthenticated'
                 '409':
-                    $ref: '#/components/responses/409Conflict'    
+                    $ref: '#/components/responses/409Conflict'
                 '500':
                     $ref: '#/components/responses/500ServerError'
 components:
@@ -265,7 +265,7 @@ components:
                 cTransferList:
                     type: string
                     description: >-
-                        'RSA-SHA256' Signature of object containing UUID, Subject ID, encrypted questionnaire response, dispatch date, reception date.'
+                        'RSA-SHA256' Signature of object containing UUID, Subject ID, Questionnaire ID, Version, encrypted questionnaire response, dispatch date, reception date.'
         DeleteUUIDsParam:
             type: array
             items:
@@ -326,10 +326,10 @@ components:
                         - on-study
                         - off-study
                     description: Marks if subject is participating in the study
-                general_study_end_date: 
+                general_study_end_date:
                     type: date
                     description: End date of study that subject is/was participating in
-                personal_study_end_date: 
+                personal_study_end_date:
                     type: date
                     description: Individual end date of study that subject is/was participating in
         Health:
