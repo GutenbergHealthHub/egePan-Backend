@@ -1,10 +1,10 @@
 kind: Template
 apiVersion: template.openshift.io/v1
 metadata:
-    name: egePan-mobile-backend-template
+    name: sam-lmu-mobile-backend-template
     annotations:
-        description: 'Template for the set up of the egePan mobile backend and PostgreSQL database service on OpenShift.'
-        tags: 'egePan,nodejs,backend,database,postgresql'
+        description: 'Template for the set up of the mobile backend and PostgreSQL database service on OpenShift.'
+        tags: 'egePan,nodejs,backend,database,postgresql,SAM,LMU'
 objects:
     # PostgreSQL objects
     - kind: Secret
@@ -218,7 +218,15 @@ objects:
       data:
           COMPASS_PRIVATE_KEY: ${PRIVATE_KEY}
           COMPASS_PUBLIC_KEY: ${PUBLIC_KEY}
+          COMPASS_RECIPIENT_CERTIFICATE: ${CERTIFICATE}
       type: Opaque
+    - kind: Secret
+      apiVersion: v1
+      metadata:
+          name: google-services-secret
+      type: Opaque
+      data:
+          google-services.json: ${GOOGLE_SERVICES_JSON}
     - kind: ConfigMap
       apiVersion: v1
       metadata:
@@ -364,6 +372,14 @@ objects:
                             - configMapRef:
                                   name: mobile-backend-env
                         resources: {}
+                        env:
+                          - name: GOOGLE_APPLICATION_CREDENTIALS
+                            value: /opt/app-root/secrets/google-services.json
+                        volumeMounts:
+                          - name: secrets
+                            mountPath: /opt/app-root/secrets
+                            readOnly: true
+
                         readinessProbe:
                             httpGet:
                                 path: /health
@@ -385,6 +401,10 @@ objects:
                             periodSeconds: 10
                             successThreshold: 1
                             failureThreshold: 3
+                  volumes:
+                    - name: secrets
+                      secret:
+                        secret-name: google-services-secret
                   restartPolicy: Always
                   terminationGracePeriodSeconds: 30
                   dnsPolicy: ClusterFirst
@@ -438,7 +458,7 @@ parameters:
       required: true
     - name: APP_NAME
       description: Name of the application
-      value: num-app
+      value: sam-lmu
     - name: DATABASE_HOST
       description: Name of database host
       value: database
@@ -446,7 +466,7 @@ parameters:
       description: Name of the PostgreSQL database accessed.
       displayName: PostgreSQL Database Name
       required: true
-      value: egePan
+      value: SAM-LMU
     - name: DATABASE_PASSWORD
       description: Password for the PostgreSQL connection user.
       displayName: PostgreSQL Connection Password
@@ -477,10 +497,10 @@ parameters:
       value: '12'
     - name: ENV
       description: Name of the environment
-      value: dev
+      value: prod
     - name: GIT_BRANCH
       description: The Git branch that should be used for new builds
-      value: main
+      value: PREPARED
     - name: GENERIC_WEBHOOK_SECRET
       description: Secret for generic webhook
       generate: expression
@@ -495,7 +515,7 @@ parameters:
       from: '[a-zA-Z0-9]{16}'
     - name: HIGH_LVL_APP_NAME
       description: Name of the higher level application that a resource is part of
-      value: egePan
+      value: SAM-LMU
     - name: INSTANCE_IDENTIFIER
       description: Unique identifier for resources
       generate: expression
@@ -511,6 +531,9 @@ parameters:
     - name: PUBLIC_KEY
       description: Personal public Key for encryption functions
       required: true
+    - name: CERTIFICATE
+      description: The certificate which is used for the encryption of the responses on the app (optional)
+      value: ''
     - name: SSH_PRIVATE_KEY
       description: Private Key for access to Git
       required: true
@@ -519,3 +542,6 @@ parameters:
       displayName: Volume Capacity
       required: true
       value: 1Gi
+    - name: GOOGLE_SERVICES_JSON
+      description: config file for google services (for push notifications, optional)
+      value: ''
