@@ -25,7 +25,7 @@ export class COMPASSConfig {
      * @memberof COMPASSConfig
      */
     public static getDefaultInterval(): number {
-        return env.get('COMPASS_DEFAULT_INTERVAL').default(7).asIntPositive();
+        return env.get('COMPASS_DEFAULT_INTERVAL').default(14).asIntPositive();
     }
 
     /**
@@ -127,7 +127,7 @@ export class COMPASSConfig {
     public static getInitialQuestionnaireId(): string {
         return env
             .get('COMPASS_INITIAL_QUESTIONNAIRE_ID')
-            .default('http://hl7.org/fhir/Questionnaire/Fragebogen_egePan_init|0.1')
+            .default('http://hl7.org/fhir/Questionnaire/Fragebogen_egePan_init|2.0')
             .asString();
     }
 
@@ -141,7 +141,7 @@ export class COMPASSConfig {
     public static getDefaultQuestionnaireId(): string {
         return env
             .get('COMPASS_DEFAULT_QUESTIONNAIRE_ID')
-            .default('http://hl7.org/fhir/Questionnaire/Fragebogen_egePan_weekly|0.1')
+            .default('http://hl7.org/fhir/Questionnaire/Fragebogen_egePan_weekly|2.0')
             .asString();
     }
 

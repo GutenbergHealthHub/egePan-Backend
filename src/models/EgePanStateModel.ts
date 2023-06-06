@@ -161,7 +161,6 @@ export class EgePanStateModel implements StateModel {
 
         const initialQuestionnaireId = COMPASSConfig.getInitialQuestionnaireId();
         const defaultQuestionnaireId = COMPASSConfig.getDefaultQuestionnaireId();
-        const longQuestionnaireId = COMPASSConfig.getDefaultLongQuestionnaireId();
         let nextQuestionnaireId: string;
 
         let iterationsLeft: number;
@@ -177,9 +176,6 @@ export class EgePanStateModel implements StateModel {
             currentParticipant.additional_iterations_left === 0 &&
             currentParticipant.current_questionnaire_id === defaultQuestionnaireId
         ) {
-            nextQuestionnaireId = longQuestionnaireId;
-            startImmediately = true;
-        } else if (currentParticipant.current_questionnaire_id === longQuestionnaireId) {
             return { status: ParticipationStatus.OffStudy };
         } else {
             //default: weekly questionnaire

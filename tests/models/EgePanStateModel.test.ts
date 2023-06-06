@@ -29,13 +29,13 @@ describe('', () => {
         };
 
         const updatedEntry = StateModel.calculateUpdatedData(participantEntry);
-        expect(updatedEntry.current_interval).toBe(7);
+        expect(updatedEntry.current_interval).toBe(14);
         expect(updatedEntry.current_questionnaire_id).toBe(
             COMPASSConfig.getInitialQuestionnaireId()
         );
 
-        expect(updatedEntry.start_date.toUTCString()).toBe('Wed, 30 Oct 2019 05:00:00 GMT');
-        expect(updatedEntry.due_date.toUTCString()).toBe('Sat, 02 Nov 2019 17:00:00 GMT');
+        expect(updatedEntry.start_date.toISOString()).toBe('2019-10-30T05:00:00.000Z');
+        expect(updatedEntry.due_date.toISOString()).toBe('2019-11-02T17:00:00.000Z');
 
         expect(updatedEntry.additional_iterations_left).toBe(0);
     });
@@ -56,13 +56,13 @@ describe('', () => {
         };
 
         const updatedEntry = StateModel.calculateUpdatedData(participantEntry);
-        expect(updatedEntry.current_interval).toBe(7);
+        expect(updatedEntry.current_interval).toBe(14);
         expect(updatedEntry.current_questionnaire_id).toBe(
             COMPASSConfig.getDefaultQuestionnaireId()
         );
 
-        expect(updatedEntry.start_date.toUTCString()).toBe('Wed, 30 Oct 2019 05:00:00 GMT');
-        expect(updatedEntry.due_date.toUTCString()).toBe('Sat, 02 Nov 2019 17:00:00 GMT');
+        expect(updatedEntry.start_date.toISOString()).toBe('2019-10-30T05:00:00.000Z');
+        expect(updatedEntry.due_date.toISOString()).toBe('2019-11-02T17:00:00.000Z');
 
         expect(updatedEntry.additional_iterations_left).toBe(12);
     });
@@ -83,7 +83,7 @@ describe('', () => {
         };
 
         const updatedEntry = StateModel.calculateUpdatedData(participantEntry);
-        expect(updatedEntry.current_interval).toBe(7);
+        expect(updatedEntry.current_interval).toBe(14);
         expect(updatedEntry.current_questionnaire_id).toBe(
             COMPASSConfig.getDefaultQuestionnaireId()
         );
@@ -94,38 +94,11 @@ describe('', () => {
         expect(updatedEntry.additional_iterations_left).toBe(12);
     });
 
-    it('participant should receive final questionnaire after 13 repetitions of the weekly questionnaire', () => {
-        const participantEntry: ParticipantEntry = {
-            subject_id: 'testId',
-            last_action: undefined,
-            current_questionnaire_id: COMPASSConfig.getDefaultQuestionnaireId(),
-            start_date: new Date(Date.now()),
-            due_date: new Date(Date.now()),
-            current_instance_id: null,
-            current_interval: 0,
-            additional_iterations_left: 0,
-            status: ParticipationStatus.OnStudy,
-            general_study_end_date: undefined,
-            personal_study_end_date: undefined
-        };
-
-        const updatedEntry = StateModel.calculateUpdatedData(participantEntry);
-        expect(updatedEntry.current_interval).toBe(7);
-        expect(updatedEntry.current_questionnaire_id).toBe(
-            COMPASSConfig.getDefaultLongQuestionnaireId()
-        );
-
-        expect(updatedEntry.start_date.toISOString()).toBe('2019-10-30T05:00:00.000Z');
-        expect(updatedEntry.due_date.toISOString()).toBe('2019-11-02T17:00:00.000Z');
-
-        expect(updatedEntry.additional_iterations_left).toBe(0);
-    });
-
     it("participant should be 'off-study' after submitting final questionnaire", () => {
         const participantEntry: ParticipantEntry = {
             subject_id: 'testId',
             last_action: undefined,
-            current_questionnaire_id: COMPASSConfig.getDefaultLongQuestionnaireId(),
+            current_questionnaire_id: COMPASSConfig.getDefaultQuestionnaireId(),
             start_date: new Date('2019-11-01T05:00:00.000Z'),
             due_date: new Date('2019-14-01T05:00:00.000Z'),
             current_instance_id: null,
