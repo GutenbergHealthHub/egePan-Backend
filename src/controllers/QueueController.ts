@@ -39,8 +39,8 @@ export class QueueController {
         const queueEntry: QueueEntry = {
             id: null,
             subject_id: req.query.subjectId.toString(),
-            questionnaire_id: req.query.surveyId ? req.query.surveyId.toString() : 'Special_Report',
-            version: req.body.version ? req.body.version.toString : 'NO_VERSION',
+            questionnaire_id: req.query.surveyId?.toString() ?? 'Special_Report',
+            version: req.query.version?.toString() ?? 'NO_VERSION',
             encrypted_resp: req.body.payload,
             date_sent: new Date(),
             date_received: this.generateDateReceived(req)

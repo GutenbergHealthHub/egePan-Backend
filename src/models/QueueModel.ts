@@ -110,7 +110,7 @@ export class QueueModel {
                     return;
                 } else {
                     await dbClient.query(
-                        'INSERT INTO queue(id, subject_id, encrypted_resp, date_sent, date_received) VALUES ($1, $2, $3, $4, $5, $6, $7)',
+                        'INSERT INTO queue(id, subject_id, encrypted_resp, date_sent, date_received, questionnaire_id, version) VALUES ($1, $2, $3, $4, $5, $6, $7)',
                         [
                             IdHelper.createID(),
                             queueEntry.subject_id,
