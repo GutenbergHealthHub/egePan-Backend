@@ -100,11 +100,7 @@ export class EgePanStateModel implements StateModel {
                             COMPASSConfig.getDefaultQuestionnaireId()
                         ) {
                             if (participantData.additional_iterations_left)
-                                newStartDate.setDate(
-                                    newStartDate.getDate() +
-                                        nextInterval +
-                                        (5 - newStartDate.getDay())
-                                );
+                                newStartDate.setDate(newStartDate.getDate() + nextInterval);
                         } else if (participantData.current_questionnaire_id) {
                             newStartDate.setDate(newStartDate.getDate() + nextInterval);
                         }
@@ -112,22 +108,6 @@ export class EgePanStateModel implements StateModel {
                 }
                 newStartDate.setHours(nextStartHour, 0, 0, 0);
 
-                // Check if the current questionnaire to be completed by the user is the initial one
-                // and if all users should start on the same day of week
-                if (
-                    participantData.current_questionnaire_id ===
-                    COMPASSConfig.getInitialQuestionnaireId()
-                ) {
-                    // get the difference in days of week and increment by 7 (i.e. shift by a week), if closest start day to current day is in the past
-                } else if (
-                    participantData.current_questionnaire_id ===
-                        COMPASSConfig.getDefaultQuestionnaireId() &&
-                    participantData.additional_iterations_left === 13
-                ) {
-                    let interval = 5 - newStartDate.getDay();
-                    interval += interval < 0 ? 7 : 0;
-                    newStartDate.setDate(newStartDate.getDate() + interval);
-                }
                 newDueDate = new Date(newStartDate);
                 newDueDate.setDate(newDueDate.getDate() + nextDuration);
                 newDueDate.setHours(nextDueHour, 0, 0, 0);
@@ -197,7 +177,7 @@ export class EgePanStateModel implements StateModel {
             nextQuestionnaireId: nextQuestionnaireId,
             nextStartHour: regularStartHour,
             nextDueHour: regularDueHour,
-            startImmediately: startImmediately ? startImmediately : false,
+            startImmediately: false,
             additionalIterationsLeft: iterationsLeft
                 ? iterationsLeft
                 : currentParticipant.additional_iterations_left

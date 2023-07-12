@@ -61,10 +61,10 @@ describe('', () => {
             COMPASSConfig.getDefaultQuestionnaireId()
         );
 
-        expect(updatedEntry.start_date.toISOString()).toBe('2019-10-30T05:00:00.000Z');
-        expect(updatedEntry.due_date.toISOString()).toBe('2019-11-02T17:00:00.000Z');
+        expect(updatedEntry.start_date.toISOString()).toBe('2019-11-13T05:00:00.000Z');
+        expect(updatedEntry.due_date.toISOString()).toBe('2019-11-16T17:00:00.000Z');
 
-        expect(updatedEntry.additional_iterations_left).toBe(12);
+        expect(updatedEntry.additional_iterations_left).toBe(11);
     });
 
     it('participant should receive second instance of the weekly questionnaire on the first Friday after the initial one', () => {
@@ -88,8 +88,8 @@ describe('', () => {
             COMPASSConfig.getDefaultQuestionnaireId()
         );
 
-        expect(updatedEntry.start_date.toUTCString()).toBe('Fri, 01 Nov 2019 05:00:00 GMT');
-        expect(updatedEntry.due_date.toUTCString()).toBe('Mon, 04 Nov 2019 17:00:00 GMT');
+        expect(updatedEntry.start_date.toUTCString()).toBe('Wed, 13 Nov 2019 05:00:00 GMT');
+        expect(updatedEntry.due_date.toUTCString()).toBe('Sat, 16 Nov 2019 17:00:00 GMT');
 
         expect(updatedEntry.additional_iterations_left).toBe(12);
     });
