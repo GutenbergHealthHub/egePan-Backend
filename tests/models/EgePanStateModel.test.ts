@@ -64,7 +64,7 @@ describe('', () => {
         expect(updatedEntry.start_date.toISOString()).toBe('2019-11-13T05:00:00.000Z');
         expect(updatedEntry.due_date.toISOString()).toBe('2019-11-16T17:00:00.000Z');
 
-        expect(updatedEntry.additional_iterations_left).toBe(11);
+        expect(updatedEntry.additional_iterations_left).toBe(5);
     });
 
     it('participant should receive second instance of the weekly questionnaire on the first Friday after the initial one', () => {
@@ -76,7 +76,7 @@ describe('', () => {
             due_date: new Date(Date.now()),
             current_instance_id: null,
             current_interval: 0,
-            additional_iterations_left: 13,
+            additional_iterations_left: 6,
             status: ParticipationStatus.OnStudy,
             general_study_end_date: undefined,
             personal_study_end_date: undefined
@@ -91,7 +91,7 @@ describe('', () => {
         expect(updatedEntry.start_date.toUTCString()).toBe('Wed, 13 Nov 2019 05:00:00 GMT');
         expect(updatedEntry.due_date.toUTCString()).toBe('Sat, 16 Nov 2019 17:00:00 GMT');
 
-        expect(updatedEntry.additional_iterations_left).toBe(12);
+        expect(updatedEntry.additional_iterations_left).toBe(5);
     });
 
     it("participant should be 'off-study' after submitting final questionnaire", () => {
